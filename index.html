@@ -1,33 +1,74 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Calculator</title>
   <meta charset='utf-8'>
   <link rel='stylesheet' href='style.css'>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' rel='stylesheet'
+    integrity='sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU' crossorigin='anonymous'>
 </head>
-<body>
-  <div id='calculator'>
-    <div id='display'></div>
-    <div id='keys'>
-      <button class="nums" id='0'>0</button>
-      <button class="nums" id='1'>1</button>
-      <button class="nums" id='2'>2</button>
-      <button class="nums" id='3'>3</button>
-      <button class="nums" id='4'>4</button>
-      <button class="nums" id='5'>5</button>
-      <button class="nums" id='6'>6</button>
-      <button class="nums" id='7'>7</button>
-      <button class="nums" id='8'>8</button>
-      <button class="nums" id='9'>9</button>
-      <button class="ops" id="equal">=</button>
-      <button class="ops" id='sum'>+</button>
-      <button class="ops" id='sub'>-</button>
-      <button class="ops" id='mult'>*</button>
-      <button class="ops" id='divi'>/</button>
-      <button class="ops" id='delete'>Delete</button>
-      <button class="ops" id='clear'>Clear</button>
+
+<body class='d-flex justify-content-center align-items-center'>
+  <!-- Calculator Container -->
+  <div id='calculator' class='container w-50 shadow-lg'>
+    <!-- Result -->
+    <div id='result' class='row bg-light display-3 px-3 justify-content-end editable'>0</div>
+    <!-- Actions -->
+    <div class='row bg-white user-select-none'>
+      <!-- Nums -->
+      <div class='col align-self-center'>
+        <div class='row align-items-center'>
+          <div class='btnPoint col text-center fs-2 m-2' id='7'>7</div>
+          <div class='btnPoint col text-center fs-2 m-2' id='8'>8</div>
+          <div class='btnPoint col text-center fs-2 m-2' id='9'>9</div>
+        </div>
+        <div class='row align-items-center'>
+          <div class='btnPoint col text-center fs-2 m-2' id='4'>4</div>
+          <div class='btnPoint col text-center fs-2 m-2' id='5'>5</div>
+          <div class='btnPoint col text-center fs-2 m-2' id='6'>6</div>
+        </div>
+        <div class='row align-items-center'>
+          <div class='btnPoint col text-center fs-2 m-2' id='1'>1</div>
+          <div class='btnPoint col text-center fs-2 m-2' id='2'>2</div>
+          <div class='btnPoint col text-center fs-2 m-2' id='3'>3</div>
+        </div>
+        <div class='row align-items-center'>
+          <div class='btnPoint col text-center fs-2 m-2' id='.'>.</div>
+          <div class='btnPoint col text-center fs-2 m-2' id='0'>0</div>
+        </div>
+      </div>
+      <!-- Smoooooooooth Operator -->
+      <div class='col col-4 align-self-center bg-warning py-3 user-select-none'>
+        <div class='btnPoint row fs-2 justify-content-center m-2' id='+'>+</h2>
+        </div>
+        <div class='btnPoint row fs-2 justify-content-center m-2' id='-'>-</div>
+        <div class='btnPoint row fs-2 justify-content-center m-2' id='*'>*</div>
+        <div class='btnPoint row fs-2 justify-content-center m-2' id='/'>/</div>
+        <div class='btnPoint row fs-2 justify-content-center m-2' id='enter'>=</div>
+      </div>
+    </div>
+    <!-- Adjust -->
+    <div class='row bg-light user-select-none'>
+      <div class='btnPoint col text-center p-3' id='backspace'>
+        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-backspace'
+          viewBox='0 0 16 16'>
+          <path
+            d='M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z' />
+          <path
+            d='M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z' />
+        </svg>
+      </div>
+      <div class='btnPoint col text-center p-3' id='delete'>
+        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-eraser'
+          viewBox='0 0 16 16'>
+          <path
+            d='M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z' />
+        </svg>
+      </div>
     </div>
   </div>
   <script src='script.js'></script>
 </body>
+
 </html>

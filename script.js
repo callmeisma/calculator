@@ -1,83 +1,152 @@
-let displayValue = '';
-let op = '';
-let num1 = '';
-let num2 = '';
+let result = "";
+let input = "";
+let operator = "";
 
-function sum(a,b) {
-    return +a + +b;
+const display = document.getElementById("result");
+
+function showResult() {
+  display.innerHTML = parseFloat(result).toLocaleString();
+  input = "";
 }
 
-function subtract(a,b) {
-    return a - b;
+function showInput() {
+  // Avoid leading zero
+  if (input[0] === 0 && input.length > 1) {
+    input = input.slice(1);
+  }
+
+  display.innerHTML = parseFloat(input).toLocaleString();
 }
 
-function multiply(a,b) {
-    return a * b;
+function operate() {
+  if (input == "" && result == "") {
+    result = "0";
+  } else if (input === "") {
+    input = result;
+    input = "0";
+  } else if (result === "") {
+    result = input;
+    input = "";
+  } else {
+    result = eval(result + operator + input);
+  }
 }
 
-function divide(a,b) {
-    if (b == 0) {
-        return 'invalid'
-    } else {
-        return a / b;
+function btnToggler(id, key) {
+  temp = document.getElementsByClassName("btnPoint");
+  for (let i = 0; i < temp.length; i++) {
+    temp[i].classList.remove("bg-success");
+  }
+
+  if (key === undefined) {
+    if (id !== "") {
+      document.getElementById(id).classList.add("bg-success");
     }
-}
-
-function operate(op,a,b) {
-    switch (op) {
-        case '+':
-            return sum(a,b);
-        case '-':
-            return subtract(a,b);
-        case '*':
-            return multiply(a,b);
-        case '/':
-            return divide(a,b);
-        default:
-            return 'Error';
+  }
+  // Avoid causing errors with shift,ctrl, and other non mapped keys
+  else {
+    if (key === "=") {
+      document.getElementById("enter").classList.add("bg-success");
+    } else if (document.getElementById(key)) {
+      document.getElementById(key.toLowerCase()).classList.add("bg-success");
     }
+  }
 }
 
-function display() {
-    dis = document.getElementById('display');
-    dis.innerHTML = displayValue;
-}
+let talk = function (e) {
+  btnToggler(e.target.id, e.key);
 
-document.addEventListener('click', function(e) {
-    if (e.target.innerHTML === '+') {
-        num1 = this.getElementById('display').innerHTML;
-        op = '+';
-    } else if (e.target.innerHTML === '-') {
-        num1 = this.getElementById('display').innerHTML;
-        op = '-';
-    } else if (e.target.innerHTML === '*') {
-        num1 = this.getElementById('display').innerHTML;
-        op = '*';
-    } else if (e.target.innerHTML === '/') {
-        num1 = this.getElementById('display').innerHTML;
-        op = '/';
-    } else if (!(isNaN(e.target.innerHTML)) && op === '') {
-        displayValue += e.target.innerHTML;
-        display();
-    } else if (!(isNaN(e.target.innerHTML)) && op !== '') {
-        displayValue = e.target.innerHTML;
-        display();
-    } else if (e.target.innerHTML === '=') {
-        num2 = this.getElementById('display').innerHTML;
-        displayValue = operate(op, num1, num2);
-        display();
-    } else if (e.target.innerHTML === 'Clear') {
-        displayValue = '';
-        op = '';
-        num1 = '';
-        num2 = '';
-        display();
-    } else if (e.target.innerHTML === 'Delete') {
-        displayValue = this.getElementById('display').innerHTML.slice(0,-1);
-        display();
-    } 
-    
-    // TODO: Operate on +-*/ keys ie 2+1+3 = 6
-    // TODO: Allow decimals.
-    // TODO: Allow keyboard inputs
-});
+  if (display.innerHTML.length <= 12) {
+    if (e.key === "0" || e.target.id === "0") {
+      input += "0";
+      showInput();
+    }
+    if (e.key === "1" || e.target.id === "1") {
+      input += "1";
+      showInput();
+    }
+    if (e.key === "2" || e.target.id === "2") {
+      input += "2";
+      showInput();
+    }
+    if (e.key === "3" || e.target.id === "3") {
+      input += "3";
+      showInput();
+    }
+    if (e.key === "4" || e.target.id === "4") {
+      input += "4";
+      showInput();
+    }
+    if (e.key === "5" || e.target.id === "5") {
+      input += "5";
+      showInput();
+    }
+    if (e.key === "6" || e.target.id === "6") {
+      input += "6";
+      showInput();
+    }
+    if (e.key === "7" || e.target.id === "7") {
+      input += "7";
+      showInput();
+    }
+    if (e.key === "8" || e.target.id === "8") {
+      input += "8";
+      showInput();
+    }
+    if (e.key === "9" || e.target.id === "9") {
+      input += "9";
+      showInput();
+    }
+    if (e.key === "." || e.target.id === ".") {
+      if (input.length < 1) {
+        input += "0.";
+        showInput();
+      } else {
+        input += ".";
+        showInput();
+      }
+    }
+  }
+  if (e.key === "+" || e.target.id === "+") {
+    operate();
+    showResult();
+    operator = "+";
+  }
+  if (e.key === "-" || e.target.id === "-") {
+    operate();
+    showResult();
+    operator = "-";
+  }
+  if (e.key === "*" || e.target.id === "*") {
+    operate();
+    showResult();
+    operator = "*";
+  }
+  if (e.key === "/" || e.target.id === "/") {
+    operate();
+    showResult();
+    operator = "/";
+  }
+  if (e.key === "Enter" || e.target.id === "enter" || e.key === "=") {
+    operate();
+    showResult();
+  }
+  if (e.key === "Backspace" || e.target.id === "backspace") {
+    if (input.length > 1) {
+      input = input.slice(0, -1);
+      showInput();
+    }
+    if (result.length > 1) {
+      result = result.slice(0, -1);
+      showResult();
+    }
+  }
+  if (e.key === "Delete" || e.target.id === "delete") {
+    result = "0";
+    input = "0";
+    showInput();
+  }
+};
+
+document.addEventListener("keydown", talk, false);
+document.addEventListener("click", talk, false);
